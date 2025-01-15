@@ -1,12 +1,3 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
-  },
-})
-</script>
-
 <template>
   <div class='zmanim'>
     <h2 class='title'>Zmanim:</h2>
