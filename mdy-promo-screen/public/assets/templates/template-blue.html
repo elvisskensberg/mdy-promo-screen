@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blue Electric Template</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #000;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .donation-card {
+      position: relative;
+      width: 600px;
+      padding: 40px;
+      background: linear-gradient(135deg, #001a33 0%, #003366 100%);
+      border-radius: 20px;
+      box-shadow:
+        0 0 60px rgba(0, 150, 255, 0.6),
+        inset 0 0 60px rgba(0, 150, 255, 0.1);
+    }
+
+    .donation-card::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(45deg, #0066ff, #00ccff, #0066ff);
+      border-radius: 20px;
+      z-index: -1;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 0.5; filter: blur(8px); }
+      50% { opacity: 1; filter: blur(12px); }
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: radial-gradient(circle, #00ccff 0%, #0066ff 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      box-shadow: 0 0 40px rgba(0, 150, 255, 0.8);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 32px;
+      margin: 0 0 30px 0;
+      text-shadow: 0 0 20px rgba(0, 150, 255, 0.8);
+    }
+
+    .content {
+      color: #ffffff;
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .content p {
+      margin: 15px 0;
+    }
+
+    .content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 150, 255, 0.3);
+    }
+
+    .content li::before {
+      content: '✓';
+      color: #00ccff;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="donation-card">
+    <div class="icon">🙏</div>
+    <h1>Now we need a skeleton</h1>
+    <div class="content">
+      <p><strong>Help us build the future</strong></p>
+      <ul>
+        <li>Support Torah learning worldwide</li>
+        <li>Make a lasting impact on Jewish education</li>
+        <li>Join our community of supporters</li>
+        <li>Your donation makes a difference</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

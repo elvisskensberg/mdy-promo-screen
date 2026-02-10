@@ -1,60 +1,68 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './ContentCard.css';
 
 /**
- * ContentCard - Static overlay with two vertically stacked auto-scroll sections
+ * ContentCard - Zmanim display in top left corner
  */
-const ContentCard = ({ items }) => {
-  const topScrollRef = useRef(null);
-  const bottomScrollRef = useRef(null);
+const ContentCard = () => {
+  const [zmanimData, setZmanimData] = useState(null);
+  const scrollRef = useRef(null);
 
-  // Split items into two halves
-  const midpoint = Math.ceil(items.length / 2);
-  const topItems = items.slice(0, midpoint);
-  const bottomItems = items.slice(midpoint);
-
-  // Auto-scroll for top section
+  // Load today's zmanim data
   useEffect(() => {
-    const element = topScrollRef.current;
-    if (!element) return;
+    const loadTodayZmanim = async () => {
+      try {
+        const today = new Date();
+        const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        const response = await fetch(`/assets/zmanim/${dateStr}.json`);
+        if (response.ok) {
+          setZmanimData(await response.json());
+        }
+      } catch (err) {
+        console.error('Error loading zmanim:', err);
+      }
+    };
+    loadTodayZmanim();
+  }, []);
+
+  // Auto-scroll for zmanim
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (!element || !zmanimData) return;
     let position = 0;
     const intervalId = setInterval(() => {
-      position += 0.5;
+      position += 0.3;
       if (position >= element.scrollHeight - element.clientHeight) position = 0;
       element.scrollTop = position;
     }, 30);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [zmanimData]);
 
-  // Auto-scroll for bottom section
-  useEffect(() => {
-    const element = bottomScrollRef.current;
-    if (!element) return;
-    let position = 0;
-    const intervalId = setInterval(() => {
-      position += 0.5;
-      if (position >= element.scrollHeight - element.clientHeight) position = 0;
-      element.scrollTop = position;
-    }, 30);
-    return () => clearInterval(intervalId);
-  }, []);
+  if (!zmanimData) return null;
+
+  const times = [
+    zmanimData.times.alotHaShachar,
+    zmanimData.times.misheyakir,
+    zmanimData.times.sunrise,
+    zmanimData.times.sofZmanShma,
+    zmanimData.times.sofZmanTfilla,
+    zmanimData.times.chatzot,
+    zmanimData.times.minchaGedola,
+    zmanimData.times.minchaKetana,
+    zmanimData.times.sunset,
+    zmanimData.times.tzeit,
+  ].filter(t => t?.time);
 
   return (
     <div className="content">
-      <div className="top" ref={topScrollRef}>
-        {topItems.map((item, i) => (
-          <div key={i}>
-            <h2>{item.title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: item.html }} />
-          </div>
-        ))}
-      </div>
-
-      <div className="bottom" ref={bottomScrollRef}>
-        {bottomItems.map((item, i) => (
-          <div key={i}>
-            <h2>{item.title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: item.html }} />
+      <div className="zmanim-container" ref={scrollRef}>
+        <h1>ZMANIM</h1>
+        <p className="location">{zmanimData.location.city}, {zmanimData.location.country}</p>
+        {times.map((t, i) => (
+          <div key={i} className="zman-item">
+            <span className="zman-name">{t.name}</span>
+            <strong className="zman-time">{t.time}</strong>
+            <small className="zman-hebrew">{t.hebrew}</small>
           </div>
         ))}
       </div>

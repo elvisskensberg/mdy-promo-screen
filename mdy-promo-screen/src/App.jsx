@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import ContentCard from './components/ContentCard'
+import SponsorBar from './components/SponsorBar'
 
 const SliderItem = ({ imageUrl }) => {
   // Remove quotes from url() - they can cause issues
@@ -252,7 +253,8 @@ function App() {
   return (
     <main>
       <img src="/images/logo.jpg" alt="MDY Logo" className="logo" />
-      <ContentCard items={initialItems} />
+      <ContentCard />
+      <SponsorBar items={initialItems} />
       <div className="slider" ref={sliderRef}>
         {itemsToDisplay.map((item, index) => (
           <SliderItem

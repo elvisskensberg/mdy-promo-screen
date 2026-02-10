@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orange Fire Template</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #000;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .donation-card {
+      position: relative;
+      width: 600px;
+      padding: 40px;
+      background: linear-gradient(135deg, #331100 0%, #662200 100%);
+      border-radius: 20px;
+      box-shadow:
+        0 0 60px rgba(255, 120, 0, 0.6),
+        inset 0 0 60px rgba(255, 120, 0, 0.1);
+    }
+
+    .donation-card::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      background: linear-gradient(45deg, #ff6600, #ffaa00, #ff6600);
+      border-radius: 20px;
+      z-index: -1;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 0.5; filter: blur(8px); }
+      50% { opacity: 1; filter: blur(12px); }
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: radial-gradient(circle, #ffaa00 0%, #ff6600 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      box-shadow: 0 0 40px rgba(255, 120, 0, 0.8);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 32px;
+      margin: 0 0 30px 0;
+      text-shadow: 0 0 20px rgba(255, 120, 0, 0.8);
+    }
+
+    .content {
+      color: #ffffff;
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .content p {
+      margin: 15px 0;
+    }
+
+    .content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .content li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 120, 0, 0.3);
+    }
+
+    .content li::before {
+      content: '✓';
+      color: #ffaa00;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="donation-card">
+    <div class="icon">🔥</div>
+    <h1>Now we need a skeleton</h1>
+    <div class="content">
+      <p><strong>Ignite the flame of learning</strong></p>
+      <ul>
+        <li>Fuel Jewish scholarship and growth</li>
+        <li>Empower the next generation of learners</li>
+        <li>Create a legacy that burns bright</li>
+        <li>Your contribution lights the way</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

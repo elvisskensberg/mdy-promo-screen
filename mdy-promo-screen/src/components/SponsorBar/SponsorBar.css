@@ -1,0 +1,52 @@
+/* Horizontal scrolling sponsor bar at bottom */
+
+.sponsor-bar {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: 5vh;
+  z-index: var(--z-content);
+  pointer-events: none;
+  background: var(--color-bg-glass);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.sponsor-scroll {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  animation: scroll-left 60s linear infinite;
+  white-space: nowrap;
+}
+
+.sponsor-scroll span {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  padding-inline: 2rem;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* TV scaling */
+@media (width >= 3000px) {
+  .sponsor-bar {
+    block-size: 8vh;
+  }
+
+  .sponsor-scroll span {
+    font-size: 4rem;
+  }
+}
