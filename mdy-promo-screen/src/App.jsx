@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import ContentCard from './components/ContentCard'
 import SponsorBar from './components/SponsorBar'
+import { fetchSponsorData } from './services/sponsorService'
 
 const SliderItem = ({ imageUrl }) => {
   // Remove quotes from url() - they can cause issues
@@ -206,8 +207,24 @@ const initialItems = [
 
 function App() {
   const [items, setItems] = useState([...initialItems])
+  const [sponsorItems, setSponsorItems] = useState(initialItems)
   const [counter, setCounter] = useState(0)
   const sliderRef = useRef(null)
+
+  // Fetch sponsor data from Google Sheets on mount
+  useEffect(() => {
+    const loadSponsorData = async () => {
+      try {
+        const data = await fetchSponsorData()
+        if (data && data.length > 0) {
+          setSponsorItems(data)
+        }
+      } catch (error) {
+        console.error('Failed to load sponsor data:', error)
+      }
+    }
+    loadSponsorData()
+  }, [])
 
   const handleNavigation = () => {
     const slider = sliderRef.current
@@ -253,7 +270,7 @@ function App() {
   return (
     <main>
       <ContentCard />
-      <SponsorBar items={initialItems} />
+      <SponsorBar items={sponsorItems} />
       <div className="slider" ref={sliderRef}>
         {itemsToDisplay.map((item, index) => (
           <SliderItem

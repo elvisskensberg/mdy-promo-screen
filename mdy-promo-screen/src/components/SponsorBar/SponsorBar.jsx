@@ -13,8 +13,7 @@ const SponsorBar = ({ items }) => {
       return (
         <React.Fragment key={index}>
           <span className="sponsor-title">{item.title}</span>
-          <span className="sponsor-text">: {text}</span>
-          <span className="sponsor-separator"> • </span>
+          <span className="sponsor-text">: {text} </span>
         </React.Fragment>
       );
     });

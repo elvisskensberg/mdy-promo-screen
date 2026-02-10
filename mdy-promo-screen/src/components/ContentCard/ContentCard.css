@@ -57,6 +57,23 @@
   padding: 1vh 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Upcoming zman (within 15 mins before) - Orange */
+.content .zman-item.upcoming .zman-name,
+.content .zman-item.upcoming .zman-time,
+.content .zman-item.upcoming .zman-hebrew {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+/* Active zman (within 15 mins after) - Green */
+.content .zman-item.active .zman-name,
+.content .zman-item.active .zman-time,
+.content .zman-item.active .zman-hebrew {
+  color: #4caf50;
+  font-weight: 600;
 }
 
 .content .zman-name {
