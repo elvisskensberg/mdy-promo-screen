@@ -1,0 +1,129 @@
+{
+  "date": "2027-01-26",
+  "gregorianDate": "Tuesday, January 26, 2027",
+  "hebrewDate": "",
+  "location": {
+    "city": "Bet Shemesh",
+    "country": "Israel",
+    "latitude": 31.7453,
+    "longitude": 34.9897,
+    "timezone": "Asia/Jerusalem",
+    "elevation": 400
+  },
+  "times": {
+    "alotHaShachar": {
+      "name": "Alot Hashachar",
+      "hebrew": "עלות השחר",
+      "time": "5:22 AM",
+      "iso": "2027-01-26T05:22:00+02:00"
+    },
+    "misheyakir": {
+      "name": "Misheyakir",
+      "hebrew": "משיכיר",
+      "time": "5:44 AM",
+      "iso": "2027-01-26T05:44:00+02:00"
+    },
+    "sunrise": {
+      "name": "Sunrise",
+      "hebrew": "הנץ החמה",
+      "time": "6:37 AM",
+      "iso": "2027-01-26T06:37:00+02:00"
+    },
+    "sofZmanShma": {
+      "name": "Sof Zman Shma (MGA)",
+      "hebrew": "סוף זמן ק\"ש מג\"א",
+      "time": "9:15 AM",
+      "iso": "2027-01-26T09:15:00+02:00"
+    },
+    "sofZmanShmaGRA": {
+      "name": "Sof Zman Shma (GRA)",
+      "hebrew": "סוף זמן ק\"ש גר\"א",
+      "time": null,
+      "iso": null
+    },
+    "sofZmanTfilla": {
+      "name": "Sof Zman Tefillah",
+      "hebrew": "סוף זמן תפילה",
+      "time": "10:07 AM",
+      "iso": "2027-01-26T10:07:00+02:00"
+    },
+    "chatzot": {
+      "name": "Chatzot",
+      "hebrew": "חצות היום",
+      "time": "11:53 AM",
+      "iso": "2027-01-26T11:53:00+02:00"
+    },
+    "minchaGedola": {
+      "name": "Mincha Gedola",
+      "hebrew": "מנחה גדולה",
+      "time": "12:19 PM",
+      "iso": "2027-01-26T12:19:00+02:00"
+    },
+    "minchaKetana": {
+      "name": "Mincha Ketana",
+      "hebrew": "מנחה קטנה",
+      "time": "2:57 PM",
+      "iso": "2027-01-26T14:57:00+02:00"
+    },
+    "plagHamincha": {
+      "name": "Plag Hamincha",
+      "hebrew": "פלג המנחה",
+      "time": null,
+      "iso": null
+    },
+    "sunset": {
+      "name": "Sunset",
+      "hebrew": "שקיעה",
+      "time": "5:09 PM",
+      "iso": "2027-01-26T17:09:00+02:00"
+    },
+    "tzeit": {
+      "name": "Tzet Hakochavim",
+      "hebrew": "צאת הכוכבים",
+      "time": null,
+      "iso": null
+    }
+  },
+  "rawApiResponse": {
+    "date": "2027-01-26",
+    "version": "6.0.8-3.5.2",
+    "location": {
+      "title": "31°44′N 34°59′E Asia/Jerusalem",
+      "city": "31°44′N 34°59′E Asia/Jerusalem",
+      "tzid": "Asia/Jerusalem",
+      "latitude": 31.7453,
+      "longitude": 34.9897,
+      "geo": "pos"
+    },
+    "times": {
+      "chatzotNight": "2027-01-25T23:52:00+02:00",
+      "alotHaShachar": "2027-01-26T05:22:00+02:00",
+      "misheyakir": "2027-01-26T05:44:00+02:00",
+      "misheyakirMachmir": "2027-01-26T05:50:00+02:00",
+      "dawn": "2027-01-26T06:11:00+02:00",
+      "sunrise": "2027-01-26T06:37:00+02:00",
+      "sofZmanShmaMGA19Point8": "2027-01-26T08:28:00+02:00",
+      "sofZmanShmaMGA16Point1": "2027-01-26T08:37:00+02:00",
+      "sofZmanShmaMGA": "2027-01-26T08:39:00+02:00",
+      "sofZmanShma": "2027-01-26T09:15:00+02:00",
+      "sofZmanTfillaMGA19Point8": "2027-01-26T09:36:00+02:00",
+      "sofZmanTfillaMGA16Point1": "2027-01-26T09:42:00+02:00",
+      "sofZmanTfillaMGA": "2027-01-26T09:43:00+02:00",
+      "sofZmanTfilla": "2027-01-26T10:07:00+02:00",
+      "chatzot": "2027-01-26T11:53:00+02:00",
+      "minchaGedola": "2027-01-26T12:19:00+02:00",
+      "minchaGedolaMGA": "2027-01-26T12:25:00+02:00",
+      "minchaKetana": "2027-01-26T14:57:00+02:00",
+      "minchaKetanaMGA": "2027-01-26T15:39:00+02:00",
+      "plagHaMincha": "2027-01-26T16:03:00+02:00",
+      "sunset": "2027-01-26T17:09:00+02:00",
+      "beinHaShmashos": "2027-01-26T17:26:00+02:00",
+      "dusk": "2027-01-26T17:34:00+02:00",
+      "tzeit7083deg": "2027-01-26T17:40:00+02:00",
+      "tzeit85deg": "2027-01-26T17:47:00+02:00",
+      "tzeit42min": "2027-01-26T17:51:00+02:00",
+      "tzeit50min": "2027-01-26T17:59:00+02:00",
+      "tzeit72min": "2027-01-26T18:21:00+02:00"
+    }
+  }
+}

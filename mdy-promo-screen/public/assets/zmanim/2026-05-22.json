@@ -1,0 +1,129 @@
+{
+  "date": "2026-05-22",
+  "gregorianDate": "Friday, May 22, 2026",
+  "hebrewDate": "",
+  "location": {
+    "city": "Bet Shemesh",
+    "country": "Israel",
+    "latitude": 31.7453,
+    "longitude": 34.9897,
+    "timezone": "Asia/Jerusalem",
+    "elevation": 400
+  },
+  "times": {
+    "alotHaShachar": {
+      "name": "Alot Hashachar",
+      "hebrew": "עלות השחר",
+      "time": "4:16 AM",
+      "iso": "2026-05-22T04:16:00+03:00"
+    },
+    "misheyakir": {
+      "name": "Misheyakir",
+      "hebrew": "משיכיר",
+      "time": "4:42 AM",
+      "iso": "2026-05-22T04:42:00+03:00"
+    },
+    "sunrise": {
+      "name": "Sunrise",
+      "hebrew": "הנץ החמה",
+      "time": "5:39 AM",
+      "iso": "2026-05-22T05:39:00+03:00"
+    },
+    "sofZmanShma": {
+      "name": "Sof Zman Shma (MGA)",
+      "hebrew": "סוף זמן ק\"ש מג\"א",
+      "time": "9:08 AM",
+      "iso": "2026-05-22T09:08:00+03:00"
+    },
+    "sofZmanShmaGRA": {
+      "name": "Sof Zman Shma (GRA)",
+      "hebrew": "סוף זמן ק\"ש גר\"א",
+      "time": null,
+      "iso": null
+    },
+    "sofZmanTfilla": {
+      "name": "Sof Zman Tefillah",
+      "hebrew": "סוף זמן תפילה",
+      "time": "10:18 AM",
+      "iso": "2026-05-22T10:18:00+03:00"
+    },
+    "chatzot": {
+      "name": "Chatzot",
+      "hebrew": "חצות היום",
+      "time": "12:37 PM",
+      "iso": "2026-05-22T12:37:00+03:00"
+    },
+    "minchaGedola": {
+      "name": "Mincha Gedola",
+      "hebrew": "מנחה גדולה",
+      "time": "1:12 PM",
+      "iso": "2026-05-22T13:12:00+03:00"
+    },
+    "minchaKetana": {
+      "name": "Mincha Ketana",
+      "hebrew": "מנחה קטנה",
+      "time": "4:40 PM",
+      "iso": "2026-05-22T16:40:00+03:00"
+    },
+    "plagHamincha": {
+      "name": "Plag Hamincha",
+      "hebrew": "פלג המנחה",
+      "time": null,
+      "iso": null
+    },
+    "sunset": {
+      "name": "Sunset",
+      "hebrew": "שקיעה",
+      "time": "7:35 PM",
+      "iso": "2026-05-22T19:35:00+03:00"
+    },
+    "tzeit": {
+      "name": "Tzet Hakochavim",
+      "hebrew": "צאת הכוכבים",
+      "time": null,
+      "iso": null
+    }
+  },
+  "rawApiResponse": {
+    "date": "2026-05-22",
+    "version": "6.0.8-3.5.2",
+    "location": {
+      "title": "31°44′N 34°59′E Asia/Jerusalem",
+      "city": "31°44′N 34°59′E Asia/Jerusalem",
+      "tzid": "Asia/Jerusalem",
+      "latitude": 31.7453,
+      "longitude": 34.9897,
+      "geo": "pos"
+    },
+    "times": {
+      "chatzotNight": "2026-05-22T00:37:00+03:00",
+      "alotHaShachar": "2026-05-22T04:16:00+03:00",
+      "misheyakir": "2026-05-22T04:42:00+03:00",
+      "misheyakirMachmir": "2026-05-22T04:49:00+03:00",
+      "dawn": "2026-05-22T05:12:00+03:00",
+      "sunrise": "2026-05-22T05:39:00+03:00",
+      "sofZmanShmaMGA19Point8": "2026-05-22T08:15:00+03:00",
+      "sofZmanShmaMGA16Point1": "2026-05-22T08:26:00+03:00",
+      "sofZmanShmaMGA": "2026-05-22T08:32:00+03:00",
+      "sofZmanShma": "2026-05-22T09:08:00+03:00",
+      "sofZmanTfillaMGA19Point8": "2026-05-22T09:42:00+03:00",
+      "sofZmanTfillaMGA16Point1": "2026-05-22T09:50:00+03:00",
+      "sofZmanTfillaMGA": "2026-05-22T09:54:00+03:00",
+      "sofZmanTfilla": "2026-05-22T10:18:00+03:00",
+      "chatzot": "2026-05-22T12:37:00+03:00",
+      "minchaGedola": "2026-05-22T13:12:00+03:00",
+      "minchaGedolaMGA": "2026-05-22T13:18:00+03:00",
+      "minchaKetana": "2026-05-22T16:40:00+03:00",
+      "minchaKetanaMGA": "2026-05-22T17:22:00+03:00",
+      "plagHaMincha": "2026-05-22T18:08:00+03:00",
+      "sunset": "2026-05-22T19:35:00+03:00",
+      "beinHaShmashos": "2026-05-22T19:54:00+03:00",
+      "dusk": "2026-05-22T20:02:00+03:00",
+      "tzeit7083deg": "2026-05-22T20:08:00+03:00",
+      "tzeit85deg": "2026-05-22T20:15:00+03:00",
+      "tzeit42min": "2026-05-22T20:17:00+03:00",
+      "tzeit50min": "2026-05-22T20:25:00+03:00",
+      "tzeit72min": "2026-05-22T20:47:00+03:00"
+    }
+  }
+}

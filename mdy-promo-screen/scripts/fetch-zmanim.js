@@ -1,7 +1,7 @@
 /**
  * Fetch Zmanim Script - KosherZmanim API Integration
  *
- * Fetches halachic times for Bet Shemesh, Israel for today and next 100 days
+ * Fetches halachic times for Bet Shemesh, Israel for a full year (365 days)
  * Uses Hebcal API which is based on the KosherJava/KosherZmanim library
  * Saves each day's data as a separate JSON file in public/assets/zmanim/
  *
@@ -216,7 +216,7 @@ async function main() {
   console.log(`📁 Output directory: ${outputDir}\n`);
 
   const today = new Date();
-  const totalDays = 101; // Today + 100 days
+  const totalDays = 365; // Full year
   let successCount = 0;
   let errorCount = 0;
 
