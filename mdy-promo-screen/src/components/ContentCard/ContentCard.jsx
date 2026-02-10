@@ -1,34 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './ContentCard.css';
 
 /**
- * ContentCard - Simplified static overlay with auto-scroll
+ * ContentCard - Static overlay with two vertically stacked auto-scroll sections
  */
 const ContentCard = ({ items }) => {
-  const [zmanimData, setZmanimData] = useState(null);
-  const leftScrollRef = useRef(null);
-  const rightScrollRef = useRef(null);
+  const topScrollRef = useRef(null);
+  const bottomScrollRef = useRef(null);
 
-  // Load today's zmanim data
-  useEffect(() => {
-    const loadTodayZmanim = async () => {
-      try {
-        const today = new Date();
-        const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-        const response = await fetch(`/assets/zmanim/${dateStr}.json`);
-        if (response.ok) {
-          setZmanimData(await response.json());
-        }
-      } catch (err) {
-        console.error('Error loading zmanim:', err);
-      }
-    };
-    loadTodayZmanim();
-  }, []);
+  // Split items into two halves
+  const midpoint = Math.ceil(items.length / 2);
+  const topItems = items.slice(0, midpoint);
+  const bottomItems = items.slice(midpoint);
 
-  // Auto-scroll for left column
+  // Auto-scroll for top section
   useEffect(() => {
-    const element = leftScrollRef.current;
+    const element = topScrollRef.current;
     if (!element) return;
     let position = 0;
     const intervalId = setInterval(() => {
@@ -37,37 +24,25 @@ const ContentCard = ({ items }) => {
       element.scrollTop = position;
     }, 30);
     return () => clearInterval(intervalId);
-  }, [items]);
+  }, []);
 
-  // Auto-scroll for right column
+  // Auto-scroll for bottom section
   useEffect(() => {
-    const element = rightScrollRef.current;
-    if (!element || !zmanimData) return;
+    const element = bottomScrollRef.current;
+    if (!element) return;
     let position = 0;
     const intervalId = setInterval(() => {
-      position += 0.3;
+      position += 0.5;
       if (position >= element.scrollHeight - element.clientHeight) position = 0;
       element.scrollTop = position;
     }, 30);
     return () => clearInterval(intervalId);
-  }, [zmanimData]);
-
-  const times = zmanimData ? [
-    zmanimData.times.alotHaShachar,
-    zmanimData.times.misheyakir,
-    zmanimData.times.sunrise,
-    zmanimData.times.sofZmanShma,
-    zmanimData.times.sofZmanTfilla,
-    zmanimData.times.chatzot,
-    zmanimData.times.minchaGedola,
-    zmanimData.times.minchaKetana,
-    zmanimData.times.sunset,
-  ].filter(t => t?.time) : [];
+  }, []);
 
   return (
     <div className="content">
-      <div className="left" ref={leftScrollRef}>
-        {items.map((item, i) => (
+      <div className="top" ref={topScrollRef}>
+        {topItems.map((item, i) => (
           <div key={i}>
             <h2>{item.title}</h2>
             <div dangerouslySetInnerHTML={{ __html: item.html }} />
@@ -75,19 +50,14 @@ const ContentCard = ({ items }) => {
         ))}
       </div>
 
-      {zmanimData && (
-        <div className="right" ref={rightScrollRef}>
-          <h1>ZMANIM</h1>
-          <p>{zmanimData.location.city}, {zmanimData.location.country}</p>
-          {times.map((t, i) => (
-            <div key={i}>
-              <span>{t.name}</span>
-              <strong>{t.time}</strong>
-              <small>{t.hebrew}</small>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="bottom" ref={bottomScrollRef}>
+        {bottomItems.map((item, i) => (
+          <div key={i}>
+            <h2>{item.title}</h2>
+            <div dangerouslySetInnerHTML={{ __html: item.html }} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
