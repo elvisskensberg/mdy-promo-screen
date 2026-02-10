@@ -252,7 +252,6 @@ function App() {
 
   return (
     <main>
-      <img src="/images/logo.jpg" alt="MDY Logo" className="logo" />
       <ContentCard />
       <SponsorBar items={initialItems} />
       <div className="slider" ref={sliderRef}>

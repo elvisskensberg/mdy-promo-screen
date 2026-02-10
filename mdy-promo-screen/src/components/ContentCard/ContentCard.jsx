@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ContentCard.css';
 
 /**
@@ -6,7 +6,7 @@ import './ContentCard.css';
  */
 const ContentCard = () => {
   const [zmanimData, setZmanimData] = useState(null);
-  const scrollRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Load today's zmanim data
   useEffect(() => {
@@ -25,18 +25,13 @@ const ContentCard = () => {
     loadTodayZmanim();
   }, []);
 
-  // Auto-scroll for zmanim
+  // Update current time every second
   useEffect(() => {
-    const element = scrollRef.current;
-    if (!element || !zmanimData) return;
-    let position = 0;
     const intervalId = setInterval(() => {
-      position += 0.3;
-      if (position >= element.scrollHeight - element.clientHeight) position = 0;
-      element.scrollTop = position;
-    }, 30);
+      setCurrentTime(new Date());
+    }, 1000);
     return () => clearInterval(intervalId);
-  }, [zmanimData]);
+  }, []);
 
   if (!zmanimData) return null;
 
@@ -53,11 +48,22 @@ const ContentCard = () => {
     zmanimData.times.tzeit,
   ].filter(t => t?.time);
 
+  const formatTime = (date) => {
+    return date.toLocaleTimeString('en-US', {
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  };
+
   return (
     <div className="content">
-      <div className="zmanim-container" ref={scrollRef}>
-        <h1>ZMANIM</h1>
-        <p className="location">{zmanimData.location.city}, {zmanimData.location.country}</p>
+      <div className="zmanim-container">
+        <div className="header-row">
+          <h1>ZMANIM</h1>
+          <span className="current-time">{formatTime(currentTime)}</span>
+        </div>
         {times.map((t, i) => (
           <div key={i} className="zman-item">
             <span className="zman-name">{t.name}</span>
@@ -65,6 +71,7 @@ const ContentCard = () => {
             <small className="zman-hebrew">{t.hebrew}</small>
           </div>
         ))}
+        <img src="/images/logo.jpg" alt="MDY Logo" className="zmanim-logo" />
       </div>
     </div>
   );

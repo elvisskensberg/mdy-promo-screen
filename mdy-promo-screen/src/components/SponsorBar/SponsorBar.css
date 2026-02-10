@@ -18,17 +18,36 @@
 .sponsor-scroll {
   display: flex;
   align-items: center;
-  gap: 4rem;
-  animation: scroll-left 60s linear infinite;
+  animation: scroll-left 1500s linear infinite;
   white-space: nowrap;
 }
 
-.sponsor-scroll span {
+.sponsor-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.sponsor-title {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 700;
+  color: var(--color-text-accent);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.sponsor-text {
   font-size: clamp(1.2rem, 2vw, 1.8rem);
   font-weight: 500;
   color: var(--color-text-primary);
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-  padding-inline: 2rem;
+}
+
+.sponsor-separator {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  padding-inline: 1rem;
 }
 
 @keyframes scroll-left {
@@ -46,7 +65,9 @@
     block-size: 8vh;
   }
 
-  .sponsor-scroll span {
+  .sponsor-title,
+  .sponsor-text,
+  .sponsor-separator {
     font-size: 4rem;
   }
 }
