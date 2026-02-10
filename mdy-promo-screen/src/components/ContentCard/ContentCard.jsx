@@ -71,7 +71,9 @@ const ContentCard = () => {
             <small className="zman-hebrew">{t.hebrew}</small>
           </div>
         ))}
-        <img src="/images/logo.jpg" alt="MDY Logo" className="zmanim-logo" />
+        <div className="logo-wrapper">
+          <img src="/images/logo.jpg" alt="MDY Logo" className="zmanim-logo" />
+        </div>
       </div>
     </div>
   );
