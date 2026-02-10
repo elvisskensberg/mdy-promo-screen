@@ -1,0 +1,126 @@
+/* Simplified ContentCard - Static overlay with auto-scroll */
+
+.content {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 50vw;
+  z-index: var(--z-content);
+  display: flex !important;
+  pointer-events: none;
+  background: var(--color-bg-glass);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  color: var(--color-text-primary);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Left column - Sponsors */
+.content .left {
+  flex: 1;
+  padding: 5vh 4vw;
+  overflow: hidden;
+}
+
+.content .left > div {
+  margin-bottom: 4vh;
+}
+
+.content .left h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 0 1.5vh 0;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+  color: var(--color-text-accent);
+}
+
+.content .left p,
+.content .left .description {
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.content .left b {
+  color: var(--color-text-accent);
+}
+
+/* Right column - Zmanim */
+.content .right {
+  flex: 1;
+  padding: 5vh 4vw;
+  overflow: hidden;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.content .right h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  margin: 0 0 2vh 0;
+  color: var(--color-text-accent);
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.9);
+}
+
+.content .right p {
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  margin: 0 0 3vh 0;
+  opacity: 0.9;
+}
+
+.content .right > div {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  padding: 1.5vh 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content .right span {
+  flex: 1;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  font-weight: 500;
+}
+
+.content .right strong {
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  color: var(--color-text-accent);
+  white-space: nowrap;
+}
+
+.content .right small {
+  font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+  opacity: 0.8;
+  direction: rtl;
+  min-width: 15%;
+  text-align: right;
+}
+
+/* TV scaling */
+@media (width >= 3000px) {
+  .content .left h2 {
+    font-size: clamp(4rem, 5vw, 6rem);
+    margin-bottom: 2vh;
+  }
+
+  .content .left p {
+    font-size: 3rem;
+    line-height: 1.7;
+  }
+
+  .content .right h1 {
+    font-size: clamp(5rem, 6vw, 7rem);
+  }
+
+  .content .right span {
+    font-size: 3rem;
+  }
+
+  .content .right strong {
+    font-size: 3.5rem;
+  }
+
+  .content .right small {
+    font-size: 2.5rem;
+  }
+}
