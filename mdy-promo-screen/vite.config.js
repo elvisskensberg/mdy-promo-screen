@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 export default defineConfig({
   server: {
@@ -9,6 +10,34 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    ViteImageOptimizer({
+      // PNG optimization
+      png: {
+        quality: 85
+      },
+      // JPEG optimization
+      jpeg: {
+        quality: 80
+      },
+      jpg: {
+        quality: 80
+      },
+      // WebP generation
+      webp: {
+        quality: 85,
+        lossless: false
+      },
+      // AVIF generation (best compression)
+      avif: {
+        quality: 75
+      },
+      // Show optimization stats in terminal
+      logStats: true,
+      ansiColors: true,
+      // Cache optimized images
+      cache: true,
+      cacheLocation: '.cache/image-optimizer'
+    }),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'images/**/*', 'offline.html'],
@@ -31,7 +60,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,json}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,jpg,svg,json,webp,avif}'],
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10 MB
         globDirectory: 'dist',
         runtimeCaching: [
