@@ -35,16 +35,29 @@ const ContentCard = () => {
 
   if (!zmanimData) return null;
 
+  // Hardcoded English names for zmanim (overriding JSON names)
+  const zmanimNames = {
+    alotHaShachar: 'Dawn',
+    misheyakir: 'Earliest T&T',
+    sunrise: 'Sunrise',
+    sofZmanShma: 'Latest Shema Gra & BhT',
+    sofZmanTfilla: 'Latest Shacharit Gra & BhT',
+    chatzot: 'Chatzot',
+    minchaGedola: 'Earliest Mincha',
+    minchaKetana: 'Mincha Ketana',
+    sunset: 'Sunset'
+  };
+
   const times = [
-    zmanimData.times.alotHaShachar,
-    zmanimData.times.misheyakir,
-    zmanimData.times.sunrise,
-    zmanimData.times.sofZmanShma,
-    zmanimData.times.sofZmanTfilla,
-    zmanimData.times.chatzot,
-    zmanimData.times.minchaGedola,
-    zmanimData.times.minchaKetana,
-    zmanimData.times.sunset,
+    { ...zmanimData.times.alotHaShachar, name: zmanimNames.alotHaShachar },
+    { ...zmanimData.times.misheyakir, name: zmanimNames.misheyakir },
+    { ...zmanimData.times.sunrise, name: zmanimNames.sunrise },
+    { ...zmanimData.times.sofZmanShma, name: zmanimNames.sofZmanShma },
+    { ...zmanimData.times.sofZmanTfilla, name: zmanimNames.sofZmanTfilla },
+    { ...zmanimData.times.chatzot, name: zmanimNames.chatzot },
+    { ...zmanimData.times.minchaGedola, name: zmanimNames.minchaGedola },
+    { ...zmanimData.times.minchaKetana, name: zmanimNames.minchaKetana },
+    { ...zmanimData.times.sunset, name: zmanimNames.sunset },
     zmanimData.times.tzeit,
     zmanimData.times.chatzotNight,
   ].filter(t => t?.time);
@@ -109,7 +122,7 @@ const ContentCard = () => {
           );
         })}
         <div className="logo-wrapper">
-          <img src="/images/MDY Logo transparent .png" alt="MDY Logo" className="zmanim-logo" />
+          <img src="/images/Logo/MDY Logo transparent .png" alt="MDY Logo" className="zmanim-logo" />
         </div>
       </div>
     </div>

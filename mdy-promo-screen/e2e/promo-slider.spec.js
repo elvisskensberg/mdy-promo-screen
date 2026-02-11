@@ -109,6 +109,17 @@ test.describe('MDY Promo Slider - 55" TV Display', () => {
     // Check that background images are loaded
     const firstItem = page.locator('.slider .item').first();
 
+    // Wait for background image to be applied (retry up to 5 seconds)
+    await page.waitForFunction(
+      () => {
+        const el = document.querySelector('.slider .item');
+        if (!el) return false;
+        const bgImage = window.getComputedStyle(el).backgroundImage;
+        return bgImage && bgImage !== 'none' && bgImage.includes('url');
+      },
+      { timeout: 5000 }
+    );
+
     // Get computed background image style
     const bgImage = await firstItem.evaluate((el) => {
       return window.getComputedStyle(el).backgroundImage;

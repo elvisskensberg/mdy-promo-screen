@@ -5,9 +5,12 @@ import NetworkStatus from './components/NetworkStatus'
 import { fetchSponsorData } from './services/sponsorService'
 
 const SliderItem = ({ imageUrl }) => {
-  // Remove quotes from url() - they can cause issues
+  // Encode the URL to handle spaces and special characters
+  const encodedUrl = encodeURI(imageUrl);
+
+  // Apply background image via inline style
   const backgroundStyle = {
-    backgroundImage: `url(${imageUrl})`,
+    backgroundImage: `url("${encodedUrl}")`,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
     backgroundRepeat: 'no-repeat'
@@ -18,15 +21,27 @@ const SliderItem = ({ imageUrl }) => {
   )
 }
 
-// Generate initialItems with numbered images 1-20
-const initialItems = Array.from({ length: 20 }, (_, index) => {
-  const pageNumber = index + 1
-  return {
-    imageUrl: `/images/numbered/${pageNumber}.png`,
-    title: `Page ${pageNumber}`,
-    html: `<p class="description"><b>Slide ${pageNumber}:</b> Generated numbered image with random background color.</p>`
-  }
-})
+// List of carousel images (manually specified in order)
+const carouselImagePaths = [
+  '/images/carousel/1 - קידושין דף יג.png',
+  '/images/carousel/2 - קידושין דף יג.png',
+  '/images/carousel/3 - קידושין דף יג.png',
+  '/images/carousel/4 - קידושין דף יג.png',
+  '/images/carousel/5 - קידושין דף יג.png',
+  '/images/carousel/6 - קידושין דף יג.png',
+  '/images/carousel/7 - קידושין דף יג.png',
+  '/images/carousel/8 - קידושין דף יג.png'
+]
+
+// Create items array and duplicate to ensure smooth rotation (need at least 12 items for carousel logic)
+const baseItems = carouselImagePaths.map((path, index) => ({
+  imageUrl: path,
+  title: `Slide ${(index % 8) + 1}`,
+  html: ''
+}))
+
+// Duplicate the items to create a longer rotation cycle
+const initialItems = [...baseItems, ...baseItems]
 
 function App() {
   const [items, setItems] = useState([...initialItems])
