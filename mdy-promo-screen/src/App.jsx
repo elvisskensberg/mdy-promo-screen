@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import ContentCard from './components/ContentCard'
 import SponsorBar from './components/SponsorBar'
+import NetworkStatus from './components/NetworkStatus'
 import { fetchSponsorData } from './services/sponsorService'
 
 const SliderItem = ({ imageUrl }) => {
@@ -269,6 +270,7 @@ function App() {
 
   return (
     <main>
+      <NetworkStatus />
       <ContentCard />
       <SponsorBar items={sponsorItems} />
       <div className="slider" ref={sliderRef}>

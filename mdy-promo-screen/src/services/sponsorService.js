@@ -105,11 +105,16 @@ export async function fetchSponsorData() {
 
   try {
     console.log('Fetching sponsor data from Google Sheets...');
+
+    // Use fetch with cache control for better offline support
+    // The service worker will handle caching automatically
     const response = await fetch(GOOGLE_SHEETS_URL, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
       },
+      // Allow service worker to intercept and cache
+      cache: 'default',
     });
 
     if (!response.ok) {
