@@ -12,13 +12,13 @@
   },
   "times": {
     "alotHaShachar": {
-      "name": "Alot Hashachar",
+      "name": "Dawn",
       "hebrew": "עלות השחר",
       "time": "5:12 AM",
       "iso": "2026-02-12T05:12:00+02:00"
     },
     "misheyakir": {
-      "name": "Misheyakir",
+      "name": "Earliest T&T",
       "hebrew": "משיכיר",
       "time": "5:34 AM",
       "iso": "2026-02-12T05:34:00+02:00"
@@ -30,19 +30,19 @@
       "iso": "2026-02-12T06:25:00+02:00"
     },
     "sofZmanShma": {
-      "name": "Sof Zman Shma (MGA)",
+      "name": "Latest Shema Gra & BhT",
       "hebrew": "סוף זמן ק\"ש מג\"א",
       "time": "9:10 AM",
       "iso": "2026-02-12T09:10:00+02:00"
     },
     "sofZmanShmaGRA": {
-      "name": "Sof Zman Shma (GRA)",
+      "name": "Latest Shema (GRA)",
       "hebrew": "סוף זמן ק\"ש גר\"א",
       "time": null,
       "iso": null
     },
     "sofZmanTfilla": {
-      "name": "Sof Zman Tefillah",
+      "name": "Latest Shacharit Gra & BhT",
       "hebrew": "סוף זמן תפילה",
       "time": "10:05 AM",
       "iso": "2026-02-12T10:05:00+02:00"
@@ -54,7 +54,7 @@
       "iso": "2026-02-12T11:54:00+02:00"
     },
     "minchaGedola": {
-      "name": "Mincha Gedola",
+      "name": "Earliest Mincha",
       "hebrew": "מנחה גדולה",
       "time": "12:22 PM",
       "iso": "2026-02-12T12:22:00+02:00"
@@ -82,6 +82,12 @@
       "hebrew": "צאת הכוכבים",
       "time": null,
       "iso": null
+    },
+    "chatzotNight": {
+      "name": "Chatzot Halailah",
+      "hebrew": "חצות הלילה",
+      "time": "11:54 PM",
+      "iso": "2026-02-11T23:54:00+02:00"
     }
   },
   "rawApiResponse": {

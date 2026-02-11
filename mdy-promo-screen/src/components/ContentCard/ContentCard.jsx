@@ -46,6 +46,7 @@ const ContentCard = () => {
     zmanimData.times.minchaKetana,
     zmanimData.times.sunset,
     zmanimData.times.tzeit,
+    zmanimData.times.chatzotNight,
   ].filter(t => t?.time);
 
   const formatTime = (date) => {

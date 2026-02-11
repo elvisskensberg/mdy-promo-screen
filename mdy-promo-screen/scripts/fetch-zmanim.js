@@ -104,13 +104,13 @@ async function fetchZmanimForDate(date) {
       },
       times: {
         alotHaShachar: {
-          name: 'Alot Hashachar',
+          name: 'Dawn',
           hebrew: 'עלות השחר',
           time: data.times?.alotHaShachar ? formatTime12Hour(data.times.alotHaShachar) : null,
           iso: data.times?.alotHaShachar || null
         },
         misheyakir: {
-          name: 'Misheyakir',
+          name: 'Earliest T&T',
           hebrew: 'משיכיר',
           time: data.times?.misheyakir ? formatTime12Hour(data.times.misheyakir) : null,
           iso: data.times?.misheyakir || null
@@ -122,19 +122,19 @@ async function fetchZmanimForDate(date) {
           iso: data.times?.sunrise || null
         },
         sofZmanShma: {
-          name: 'Sof Zman Shma (MGA)',
+          name: 'Latest Shema Gra & BhT',
           hebrew: 'סוף זמן ק"ש מג"א',
           time: data.times?.sofZmanShma ? formatTime12Hour(data.times.sofZmanShma) : null,
           iso: data.times?.sofZmanShma || null
         },
         sofZmanShmaGRA: {
-          name: 'Sof Zman Shma (GRA)',
+          name: 'Latest Shema (GRA)',
           hebrew: 'סוף זמן ק"ש גר"א',
           time: data.times?.sofZmanShmaGRA ? formatTime12Hour(data.times.sofZmanShmaGRA) : null,
           iso: data.times?.sofZmanShmaGRA || null
         },
         sofZmanTfilla: {
-          name: 'Sof Zman Tefillah',
+          name: 'Latest Shacharit Gra & BhT',
           hebrew: 'סוף זמן תפילה',
           time: data.times?.sofZmanTfilla ? formatTime12Hour(data.times.sofZmanTfilla) : null,
           iso: data.times?.sofZmanTfilla || null
@@ -146,7 +146,7 @@ async function fetchZmanimForDate(date) {
           iso: data.times?.chatzot || null
         },
         minchaGedola: {
-          name: 'Mincha Gedola',
+          name: 'Earliest Mincha',
           hebrew: 'מנחה גדולה',
           time: data.times?.minchaGedola ? formatTime12Hour(data.times.minchaGedola) : null,
           iso: data.times?.minchaGedola || null
@@ -174,6 +174,12 @@ async function fetchZmanimForDate(date) {
           hebrew: 'צאת הכוכבים',
           time: data.times?.tzeit ? formatTime12Hour(data.times.tzeit) : null,
           iso: data.times?.tzeit || null
+        },
+        chatzotNight: {
+          name: 'Chatzot Halailah',
+          hebrew: 'חצות הלילה',
+          time: data.times?.chatzotNight ? formatTime12Hour(data.times.chatzotNight) : null,
+          iso: data.times?.chatzotNight || null
         }
       },
       rawApiResponse: data // Keep original API response for reference
