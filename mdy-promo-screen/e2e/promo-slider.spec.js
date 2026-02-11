@@ -21,19 +21,18 @@ test.describe('MDY Promo Slider - 55" TV Display', () => {
     const slider = page.locator('.slider');
     await expect(slider).toBeVisible();
 
-    // Verify navigation buttons are present
-    const navButtons = page.locator('.nav ion-icon');
-    await expect(navButtons).toHaveCount(2);
+    // Verify slider items are present
+    const sliderItems = page.locator('.slider .item');
+    await expect(sliderItems).toHaveCount(6);
   });
 
-  test('should capture slider after navigation', async ({ page }) => {
-    // Click next button to advance slide
-    await page.locator('.nav ion-icon').nth(1).click();
-    await page.waitForTimeout(500);
+  test('should capture slider after auto-rotation', async ({ page }) => {
+    // Wait for auto-rotation to occur
+    await page.waitForTimeout(3500);
 
-    // Take screenshot after first navigation
+    // Take screenshot after auto-rotation
     await page.screenshot({
-      path: 'e2e/screenshots/slider-after-next.png',
+      path: 'e2e/screenshots/slider-after-rotation.png',
       fullPage: false,
     });
 
@@ -44,31 +43,31 @@ test.describe('MDY Promo Slider - 55" TV Display', () => {
   });
 
   test('should capture multiple slider states', async ({ page }) => {
-    // Capture screenshots at different rotation points
-    for (let i = 0; i < 5; i++) {
+    // Capture screenshots at different rotation points using auto-rotation
+    for (let i = 0; i < 3; i++) {
       await page.screenshot({
         path: `e2e/screenshots/slider-state-${i + 1}.png`,
         fullPage: false,
       });
 
-      // Click next to advance
-      await page.locator('.nav ion-icon').nth(1).click();
-      await page.waitForTimeout(800); // Wait for animation
+      // Wait for auto-rotation
+      await page.waitForTimeout(3500);
     }
   });
 
-  test('should verify slider content is readable', async ({ page }) => {
-    // Check that sponsor content is visible
-    const content = page.locator('.item .content').first();
-    await expect(content).toBeVisible();
+  test('should verify sponsor bar is readable', async ({ page }) => {
+    // Check that sponsor bar is visible
+    const sponsorBar = page.locator('.sponsor-bar');
+    await expect(sponsorBar).toBeVisible();
 
-    // Check that title is present
-    const title = page.locator('.item .name').first();
-    await expect(title).toHaveText(/Sponsors|Gate Keeper/);
+    // Check that sponsor bar has content
+    const sponsorBarText = await sponsorBar.textContent();
+    expect(sponsorBarText).toBeTruthy();
+    expect(sponsorBarText.length).toBeGreaterThan(0);
 
-    // Take screenshot focused on content area
-    await content.screenshot({
-      path: 'e2e/screenshots/slider-content-detail.png',
+    // Take screenshot focused on sponsor bar
+    await sponsorBar.screenshot({
+      path: 'e2e/screenshots/sponsor-bar-detail.png',
       animations: 'disabled',
     });
   });
@@ -126,22 +125,17 @@ test.describe('MDY Promo Slider - 55" TV Display', () => {
     });
   });
 
-  test('should capture navigation interaction', async ({ page }) => {
-    // Hover over next button
-    await page.locator('.nav ion-icon').nth(1).hover();
-    await page.waitForTimeout(300);
+  test('should verify zmanim content is displayed', async ({ page }) => {
+    // Check that zmanim section is visible
+    const zmanimSection = page.locator('text=ZMANIM');
+    await expect(zmanimSection).toBeVisible();
+
+    // Check for zmanim container
+    const zmanimContent = page.locator('.zmanim-container');
+    await expect(zmanimContent).toBeVisible();
 
     await page.screenshot({
-      path: 'e2e/screenshots/slider-nav-hover.png',
-      fullPage: false,
-    });
-
-    // Click next button
-    await page.locator('.nav ion-icon').nth(1).click();
-    await page.waitForTimeout(500);
-
-    await page.screenshot({
-      path: 'e2e/screenshots/slider-nav-clicked.png',
+      path: 'e2e/screenshots/zmanim-display.png',
       fullPage: false,
     });
   });
