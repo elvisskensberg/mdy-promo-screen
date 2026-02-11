@@ -18,13 +18,20 @@
 .sponsor-scroll {
   display: flex;
   align-items: center;
-  animation: scroll-left 1500s linear infinite;
+  animation: scroll-left 750s linear infinite;
   white-space: nowrap;
 }
 
 .sponsor-content {
   display: flex;
   align-items: center;
+  white-space: nowrap;
+}
+
+.sponsor-item {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 5vw;
   white-space: nowrap;
 }
 
