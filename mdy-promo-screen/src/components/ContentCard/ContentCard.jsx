@@ -109,7 +109,7 @@ const ContentCard = () => {
           );
         })}
         <div className="logo-wrapper">
-          <img src="/images/logo.jpg" alt="MDY Logo" className="zmanim-logo" />
+          <img src="/images/MDY Logo transparent .png" alt="MDY Logo" className="zmanim-logo" />
         </div>
       </div>
     </div>
