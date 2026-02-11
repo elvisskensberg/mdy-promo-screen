@@ -103,10 +103,6 @@ function App() {
           />
         ))}
       </div>
-      <nav className="nav">
-        <ion-icon className="btn prev" name="arrow-back-outline" onClick={handleNavigation}></ion-icon>
-        <ion-icon className="btn next" name="arrow-forward-outline" onClick={handleNavigation}></ion-icon>
-      </nav>
     </main>
   )
 }
