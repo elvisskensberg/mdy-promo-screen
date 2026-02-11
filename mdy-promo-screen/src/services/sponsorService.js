@@ -8,6 +8,11 @@ const CACHE_KEY = 'mdy_sponsor_data';
 const CACHE_TIMESTAMP_KEY = 'mdy_sponsor_data_timestamp';
 const CACHE_DURATION = 1000 * 60 * 60; // 1 hour
 
+// Debug tracking
+const DEBUG_KEY = 'mdy_sponsor_debug';
+let lastFetchAttempt = null;
+let lastFetchStatus = null;
+
 // TODO: Replace with your Google Sheets API configuration
 // Option 1: Use Google Apps Script Web App URL (recommended)
 // Deploy your sheet as a web app: Extensions > Apps Script > Deploy > New deployment
@@ -20,14 +25,37 @@ const GOOGLE_SHEETS_URL = import.meta.env.VITE_GOOGLE_SHEETS_URL ||
 // const GOOGLE_SHEETS_URL = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!A:B?key=${API_KEY}`;
 
 /**
+ * Log debug information
+ */
+function logDebug(message, data = null) {
+  const timestamp = new Date().toISOString();
+  const logEntry = { timestamp, message, data };
+
+  console.log(`[SponsorService ${timestamp}] ${message}`, data || '');
+
+  // Save to localStorage for inspection
+  try {
+    const debugLog = JSON.parse(localStorage.getItem(DEBUG_KEY) || '[]');
+    debugLog.push(logEntry);
+    // Keep only last 20 entries
+    if (debugLog.length > 20) debugLog.shift();
+    localStorage.setItem(DEBUG_KEY, JSON.stringify(debugLog));
+  } catch (error) {
+    console.error('Failed to save debug log:', error);
+  }
+}
+
+/**
  * Save data to localStorage cache
  */
 function saveToCache(data) {
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify(data));
     localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+    logDebug('Data saved to cache', { itemCount: data.length });
   } catch (error) {
     console.error('Failed to save to localStorage:', error);
+    logDebug('Failed to save to cache', { error: error.message });
   }
 }
 
@@ -116,11 +144,25 @@ function isGoogleSheetsConfigured() {
  * @returns {Promise<Array>} Array of sponsor items
  */
 export async function fetchSponsorData() {
+  lastFetchAttempt = new Date().toISOString();
+  logDebug('=== Starting sponsor data fetch ===', {
+    timestamp: lastFetchAttempt,
+    googleSheetsUrl: GOOGLE_SHEETS_URL,
+    isConfigured: isGoogleSheetsConfigured()
+  });
+
   // Check if cache is valid and return cached data
   if (isCacheValid()) {
     const cachedData = getFromCache();
     if (cachedData && cachedData.length > 0) {
-      console.log('Using cached sponsor data');
+      const cacheTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+      const cacheAge = Date.now() - parseInt(cacheTimestamp);
+      lastFetchStatus = 'cache_hit';
+      logDebug('Using cached sponsor data', {
+        itemCount: cachedData.length,
+        cacheAge: `${Math.floor(cacheAge / 1000 / 60)} minutes`,
+        source: 'valid_cache'
+      });
       return cachedData;
     }
   }
@@ -128,34 +170,44 @@ export async function fetchSponsorData() {
   // If Google Sheets is not configured, use local sample data for development
   if (!isGoogleSheetsConfigured()) {
     try {
-      console.log('Google Sheets not configured, using local sample data...');
+      logDebug('Google Sheets not configured, attempting local sample data');
       const response = await fetch('/assets/sponsors/sample-data.json');
       if (response.ok) {
         const data = await response.json();
+        logDebug('Sample data response received', { data });
         const transformedData = transformSheetData(data);
         if (transformedData.length > 0) {
           saveToCache(transformedData);
-          console.log('Local sample data loaded successfully');
+          lastFetchStatus = 'sample_data_success';
+          logDebug('Local sample data loaded successfully', {
+            itemCount: transformedData.length,
+            items: transformedData
+          });
           return transformedData;
         }
       }
     } catch (error) {
-      console.warn('Failed to load local sample data:', error);
+      lastFetchStatus = 'sample_data_error';
+      logDebug('Failed to load local sample data', { error: error.message });
     }
   }
 
   try {
-    console.log('Fetching sponsor data from Google Sheets...');
+    logDebug('Fetching from Google Sheets', { url: GOOGLE_SHEETS_URL });
 
     // Use fetch with cache control for better offline support
-    // The service worker will handle caching automatically
     const response = await fetch(GOOGLE_SHEETS_URL, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
       },
-      // Allow service worker to intercept and cache
       cache: 'default',
+    });
+
+    logDebug('Google Sheets response received', {
+      status: response.status,
+      statusText: response.statusText,
+      headers: Object.fromEntries(response.headers.entries())
     });
 
     if (!response.ok) {
@@ -163,29 +215,50 @@ export async function fetchSponsorData() {
     }
 
     const data = await response.json();
+    logDebug('Google Sheets data parsed', {
+      dataType: typeof data,
+      dataKeys: Object.keys(data),
+      rawData: data
+    });
+
     const transformedData = transformSheetData(data);
+    logDebug('Data transformed', {
+      itemCount: transformedData.length,
+      transformedData
+    });
 
     if (transformedData.length === 0) {
       throw new Error('No valid data received from Google Sheets');
     }
 
-    // Save to cache
     saveToCache(transformedData);
-    console.log('Sponsor data fetched and cached successfully');
+    lastFetchStatus = 'google_sheets_success';
+    logDebug('✅ Sponsor data fetched and cached successfully', {
+      itemCount: transformedData.length,
+      source: 'google_sheets'
+    });
     return transformedData;
 
   } catch (error) {
-    console.error('Failed to fetch sponsor data from Google Sheets:', error);
+    lastFetchStatus = 'google_sheets_error';
+    logDebug('❌ Failed to fetch from Google Sheets', {
+      error: error.message,
+      stack: error.stack
+    });
 
     // Fallback to cached data (ignore expiry in case of error)
     const cachedData = getFromCache();
     if (cachedData && cachedData.length > 0) {
-      console.log('Using cached sponsor data as fallback');
+      lastFetchStatus = 'cache_fallback';
+      logDebug('Using cached sponsor data as fallback', {
+        itemCount: cachedData.length
+      });
       return cachedData;
     }
 
     // Return default data if cache is empty
-    console.log('Using default sponsor data');
+    lastFetchStatus = 'default_data';
+    logDebug('Using default sponsor data', { reason: 'all_sources_failed' });
     return getDefaultSponsorData();
   }
 }
@@ -209,14 +282,61 @@ function getDefaultSponsorData() {
 }
 
 /**
+ * Get debug information about sponsor data fetch
+ */
+export function getSponsorDebugInfo() {
+  const cachedData = getFromCache();
+  const cacheTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+  const debugLog = JSON.parse(localStorage.getItem(DEBUG_KEY) || '[]');
+
+  const info = {
+    lastFetchAttempt,
+    lastFetchStatus,
+    googleSheetsUrl: GOOGLE_SHEETS_URL,
+    isConfigured: isGoogleSheetsConfigured(),
+    cache: {
+      valid: isCacheValid(),
+      timestamp: cacheTimestamp ? new Date(parseInt(cacheTimestamp)).toISOString() : null,
+      itemCount: cachedData ? cachedData.length : 0,
+      data: cachedData
+    },
+    recentLogs: debugLog.slice(-10)
+  };
+
+  console.log('=== SPONSOR SERVICE DEBUG INFO ===');
+  console.table({
+    'Last Fetch': lastFetchAttempt,
+    'Status': lastFetchStatus,
+    'Google Sheets URL': GOOGLE_SHEETS_URL,
+    'Is Configured': isGoogleSheetsConfigured(),
+    'Cache Valid': isCacheValid(),
+    'Cache Items': cachedData ? cachedData.length : 0
+  });
+  console.log('Full Debug Info:', info);
+  console.log('==================================');
+
+  return info;
+}
+
+/**
  * Clear cached sponsor data (useful for debugging)
  */
 export function clearSponsorCache() {
   try {
     localStorage.removeItem(CACHE_KEY);
     localStorage.removeItem(CACHE_TIMESTAMP_KEY);
-    console.log('Sponsor cache cleared');
+    localStorage.removeItem(DEBUG_KEY);
+    logDebug('Cache cleared manually');
+    console.log('✅ Sponsor cache cleared');
   } catch (error) {
     console.error('Failed to clear cache:', error);
+    logDebug('Failed to clear cache', { error: error.message });
   }
+}
+
+// Expose debug functions globally for console access
+if (typeof window !== 'undefined') {
+  window.getSponsorDebugInfo = getSponsorDebugInfo;
+  window.clearSponsorCache = clearSponsorCache;
+  console.log('💡 Debug functions available: getSponsorDebugInfo(), clearSponsorCache()');
 }
