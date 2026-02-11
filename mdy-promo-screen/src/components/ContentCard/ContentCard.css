@@ -111,14 +111,6 @@
   display: block;
   width: 100%;
   height: auto;
-  mix-blend-mode: darken;
-  filter:
-    brightness(1.4)
-    contrast(2)
-    saturate(2.5)
-    hue-rotate(-10deg)
-    drop-shadow(0 4px 12px rgba(218, 165, 32, 0.6));
-  opacity: 0.98;
 }
 
 /* TV scaling */
