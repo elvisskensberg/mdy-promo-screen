@@ -26,8 +26,9 @@ function doGet(e) {
   const result = rows
     .filter(row => row[0] && row[1]) // Only include rows with heading and content
     .map(row => ({
-      heading: row[0],
-      content: row[1],
+      // Trim newlines and extra whitespace, keep on single line
+      heading: String(row[0]).replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim(),
+      content: String(row[1]).replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim(),
       imageUrl: row[2] || '' // Optional image URL
     }));
 

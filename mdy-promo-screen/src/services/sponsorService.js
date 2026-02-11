@@ -58,6 +58,19 @@ function isCacheValid() {
 }
 
 /**
+ * Clean text by removing newlines and extra whitespace
+ * @param {string} text - Text to clean
+ * @returns {string} Cleaned text on single line
+ */
+function cleanText(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/[\r\n]+/g, ' ') // Replace newlines with spaces
+    .replace(/\s+/g, ' ')      // Collapse multiple spaces
+    .trim();                    // Remove leading/trailing whitespace
+}
+
+/**
  * Transform Google Sheets response to application format
  * Expects response with rows: [heading, content]
  */
@@ -67,9 +80,9 @@ function transformSheetData(response) {
     return response.data
       .filter(row => row.heading && row.content)
       .map((row, index) => ({
-        title: row.heading,
-        html: row.content,
-        imageUrl: row.imageUrl || `/images/${(index % 8) + 1}.png`
+        title: cleanText(row.heading),
+        html: cleanText(row.content),
+        imageUrl: row.imageUrl || `/images/numbered/${(index % 20) + 1}.png`
       }));
   }
 
@@ -79,9 +92,9 @@ function transformSheetData(response) {
       .slice(1) // Skip header row
       .filter(row => row[0] && row[1])
       .map((row, index) => ({
-        title: row[0],
-        html: row[1],
-        imageUrl: row[2] || `/images/${(index % 8) + 1}.png`
+        title: cleanText(row[0]),
+        html: cleanText(row[1]),
+        imageUrl: row[2] || `/images/numbered/${(index % 20) + 1}.png`
       }));
   }
 
