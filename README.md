@@ -4,7 +4,8 @@
 
 ## 🌐 Live Website
 
-**Production:** [Add your deployed URL here]
+**GitHub Repository:** https://github.com/elvisskensberg/mdy-promo-screen
+**GitHub Pages:** https://elvisskensberg.github.io/mdy-promo-screen/ _(not yet deployed)_
 **Development:** http://localhost:3009
 
 ---
@@ -209,8 +210,74 @@ npm run build
 # Output: dist/ directory
 ```
 
-### Deployment Options
-- **Static Hosting**: Netlify, Vercel, GitHub Pages, Cloudflare Pages
+### GitHub Pages Deployment
+
+To deploy to GitHub Pages (https://elvisskensberg.github.io/mdy-promo-screen/):
+
+1. **Enable GitHub Pages**:
+   ```bash
+   # Go to repository settings → Pages
+   # Or use: gh browse --settings
+   # Set Source to "GitHub Actions"
+   ```
+
+2. **Create GitHub Actions Workflow**:
+   Create `.github/workflows/deploy.yml`:
+   ```yaml
+   name: Deploy to GitHub Pages
+
+   on:
+     push:
+       branches: [main]
+     workflow_dispatch:
+
+   permissions:
+     contents: read
+     pages: write
+     id-token: write
+
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+         - uses: actions/setup-node@v4
+           with:
+             node-version: 18
+         - run: cd mdy-promo-screen && npm ci
+         - run: cd mdy-promo-screen && npm run build
+         - uses: actions/upload-pages-artifact@v3
+           with:
+             path: mdy-promo-screen/dist
+
+     deploy:
+       needs: build
+       runs-on: ubuntu-latest
+       environment:
+         name: github-pages
+         url: ${{ steps.deployment.outputs.page_url }}
+       steps:
+         - uses: actions/deploy-pages@v4
+           id: deployment
+   ```
+
+3. **Add base path to vite.config.js**:
+   ```js
+   export default defineConfig({
+     base: '/mdy-promo-screen/',
+     // ... rest of config
+   })
+   ```
+
+4. **Push and Deploy**:
+   ```bash
+   git add .
+   git commit -m "Add GitHub Pages deployment"
+   git push
+   ```
+
+### Other Deployment Options
+- **Static Hosting**: Netlify, Vercel, Cloudflare Pages
 - **Traditional Server**: Apache, Nginx
 - **Cloud Storage**: AWS S3, Google Cloud Storage
 
