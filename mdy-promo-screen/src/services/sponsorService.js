@@ -102,8 +102,17 @@ function transformSheetData(response) {
 }
 
 /**
+ * Check if Google Sheets URL is configured
+ */
+function isGoogleSheetsConfigured() {
+  return GOOGLE_SHEETS_URL &&
+         !GOOGLE_SHEETS_URL.includes('YOUR_DEPLOYMENT_ID') &&
+         !GOOGLE_SHEETS_URL.includes('DEPLOY_APPS_SCRIPT');
+}
+
+/**
  * Fetch sponsor data from Google Sheets
- * Falls back to localStorage if fetch fails
+ * Falls back to local sample data if not configured, then localStorage if fetch fails
  * @returns {Promise<Array>} Array of sponsor items
  */
 export async function fetchSponsorData() {
@@ -113,6 +122,25 @@ export async function fetchSponsorData() {
     if (cachedData && cachedData.length > 0) {
       console.log('Using cached sponsor data');
       return cachedData;
+    }
+  }
+
+  // If Google Sheets is not configured, use local sample data for development
+  if (!isGoogleSheetsConfigured()) {
+    try {
+      console.log('Google Sheets not configured, using local sample data...');
+      const response = await fetch('/assets/sponsors/sample-data.json');
+      if (response.ok) {
+        const data = await response.json();
+        const transformedData = transformSheetData(data);
+        if (transformedData.length > 0) {
+          saveToCache(transformedData);
+          console.log('Local sample data loaded successfully');
+          return transformedData;
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to load local sample data:', error);
     }
   }
 
