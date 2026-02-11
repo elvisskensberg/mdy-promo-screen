@@ -19,7 +19,8 @@
     "test:e2e:tv1080p": "playwright test --project=TV-1080p",
     "test:report": "playwright show-report",
     "test:all": "npm run test:coverage && npm run test:e2e",
-    "fetch-zmanim": "node scripts/fetch-zmanim.js"
+    "fetch-zmanim": "node scripts/fetch-zmanim.js",
+    "generate-images": "node scripts/generate-numbered-images.js"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -35,6 +36,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^4.0.18",
     "@vitest/ui": "^4.0.18",
+    "canvas": "^3.2.1",
     "happy-dom": "^20.6.1",
     "jsdom": "^28.0.0",
     "vite": "^6.0.5",
