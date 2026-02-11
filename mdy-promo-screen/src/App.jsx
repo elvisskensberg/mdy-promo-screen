@@ -45,7 +45,7 @@ const initialItems = [...baseItems, ...baseItems]
 
 function App() {
   const [items, setItems] = useState([...initialItems])
-  const [sponsorItems, setSponsorItems] = useState(initialItems)
+  const [sponsorItems, setSponsorItems] = useState([])
   const [counter, setCounter] = useState(0)
   const sliderRef = useRef(null)
 
