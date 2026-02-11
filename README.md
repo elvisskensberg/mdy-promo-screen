@@ -4,8 +4,8 @@
 
 ## 🌐 Live Website
 
+**Production (Azure Static Web Apps):** https://ambitious-stone-05fd8330f.1.azurestaticapps.net
 **GitHub Repository:** https://github.com/elvisskensberg/mdy-promo-screen
-**GitHub Pages:** https://elvisskensberg.github.io/mdy-promo-screen/ _(not yet deployed)_
 **Development:** http://localhost:3009
 
 ---
@@ -204,87 +204,76 @@ Images are automatically loaded and rotated in numerical order.
 
 ## 🌍 Deployment
 
+### Current Production Deployment
+
+**Platform:** Azure Static Web Apps
+**URL:** https://ambitious-stone-05fd8330f.1.azurestaticapps.net
+**Auto-Deploy:** ✅ Enabled on push to `main` branch
+
 ### Build Output
 ```bash
 npm run build
-# Output: dist/ directory
+# Output: mdy-promo-screen/dist/ directory
 ```
 
-### GitHub Pages Deployment
+### Azure Static Web Apps Configuration
 
-To deploy to GitHub Pages (https://elvisskensberg.github.io/mdy-promo-screen/):
+The app is configured to automatically deploy via GitHub Actions:
 
-1. **Enable GitHub Pages**:
-   ```bash
-   # Go to repository settings → Pages
-   # Or use: gh browse --settings
-   # Set Source to "GitHub Actions"
-   ```
+**Workflow File:** `.github/workflows/azure-static-web-apps.yml`
 
-2. **Create GitHub Actions Workflow**:
-   Create `.github/workflows/deploy.yml`:
-   ```yaml
-   name: Deploy to GitHub Pages
+**Deployment Trigger:**
+- Automatic deployment on every push to `main` branch
+- Preview deployments for pull requests
 
-   on:
-     push:
-       branches: [main]
-     workflow_dispatch:
+**Build Configuration:**
+- **App Location:** `mdy-promo-screen`
+- **Output Location:** `dist`
+- **API Location:** _(none)_
 
-   permissions:
-     contents: read
-     pages: write
-     id-token: write
+**Secrets Required:**
+- `AZURE_STATIC_WEB_APPS_API_TOKEN` - Stored in GitHub repository secrets
 
-   jobs:
-     build:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v4
-         - uses: actions/setup-node@v4
-           with:
-             node-version: 18
-         - run: cd mdy-promo-screen && npm ci
-         - run: cd mdy-promo-screen && npm run build
-         - uses: actions/upload-pages-artifact@v3
-           with:
-             path: mdy-promo-screen/dist
+### Manual Deployment
 
-     deploy:
-       needs: build
-       runs-on: ubuntu-latest
-       environment:
-         name: github-pages
-         url: ${{ steps.deployment.outputs.page_url }}
-       steps:
-         - uses: actions/deploy-pages@v4
-           id: deployment
-   ```
+To manually trigger a deployment:
 
-3. **Add base path to vite.config.js**:
-   ```js
-   export default defineConfig({
-     base: '/mdy-promo-screen/',
-     // ... rest of config
-   })
-   ```
+```bash
+# Push to main branch
+git push origin main
 
-4. **Push and Deploy**:
-   ```bash
-   git add .
-   git commit -m "Add GitHub Pages deployment"
-   git push
-   ```
+# Or trigger workflow manually
+gh workflow run "Azure Static Web Apps CI/CD"
+```
 
-### Other Deployment Options
+### View Deployment Status
+
+```bash
+# View recent deployments
+gh run list --workflow="Azure Static Web Apps CI/CD"
+
+# View specific deployment logs
+gh run view <run-id> --log
+```
+
+### Alternative Deployment Options
+
+If you need to deploy elsewhere:
 - **Static Hosting**: Netlify, Vercel, Cloudflare Pages
+- **GitHub Pages**: Requires base path configuration in vite.config.js
 - **Traditional Server**: Apache, Nginx
 - **Cloud Storage**: AWS S3, Google Cloud Storage
 
 ### Environment Variables for Production
+
 ```env
 VITE_GOOGLE_SHEETS_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
 ```
+
+Set environment variables in Azure Static Web Apps:
+1. Go to Azure Portal → Your Static Web App
+2. Configuration → Application settings
+3. Add environment variables with `VITE_` prefix
 
 ---
 
